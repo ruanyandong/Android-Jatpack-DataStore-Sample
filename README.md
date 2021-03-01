@@ -431,8 +431,11 @@ RxDataStore.data(dataStore).first().subscribe();
 
 参考文档
 [Jetpack DataStore官方文档](https://developer.android.com/topic/libraries/architecture/datastore#kotlin)
+
 [Android Jetpack 之 DataStore博客](https://blog.csdn.net/zzw0221/article/details/109274610)
+
 [google/protobuf-gradle-plugin](https://github.com/google/protobuf-gradle-plugin)
+
 [protobuf官方文档](https://developers.google.com/protocol-buffers)
 
 
