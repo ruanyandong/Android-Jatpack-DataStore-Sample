@@ -1,0 +1,115 @@
+plugins {
+    id 'com.android.application'
+}
+apply plugin: 'kotlin-android'
+apply plugin: 'com.google.protobuf'
+
+//https://github.com/google/protobuf-gradle-plugin
+android {
+    compileSdkVersion 29
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.ryd.datastore"
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        // 开起分包
+        multiDexEnabled true
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            proto {
+                //The plugin adds a new sources block named proto alongside java to every sourceSet. By default, it includes all *.proto files under src/$sourceSetName/proto. You can customize it in the same way as you would customize the java sources.
+                srcDir 'src/main/proto'
+                include '**/*.proto'
+            }
+        }
+    }
+
+
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    //======================
+    //  Typed DataStore (Typed API surface, such as Proto)
+    implementation "androidx.datastore:datastore:1.0.0-alpha06"
+
+    // optional - RxJava2 support
+    implementation "androidx.datastore:datastore-rxjava2:1.0.0-alpha06"
+
+    // optional - RxJava3 support
+    //implementation "androidx.datastore:datastore-rxjava3:1.0.0-alpha06"
+
+    //=======================
+    // Preferences DataStore (SharedPreferences like APIs)
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha06"
+
+    // optional - RxJava2 support
+    implementation "androidx.datastore:datastore-preferences-rxjava2:1.0.0-alpha06"
+
+    // optional - RxJava3 support
+    //implementation "androidx.datastore:datastore-preferences-rxjava3:1.0.0-alpha06"
+
+    //==================
+    // kotlin
+    implementation "androidx.core:core-ktx:1.3.2"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // multidex
+    implementation 'com.android.support:multidex:1.0.3'
+
+    // protobuf
+    implementation 'com.google.protobuf:protobuf-javalite:3.10.0'
+
+
+}
+
+protobuf {
+      // Configure the protoc executable
+    protoc {
+        // Download from repositories
+        artifact = "com.google.protobuf:protoc:3.10.0"
+    }
+
+    // Generates the java Protobuf-lite code for the Protobufs in this project. See
+    // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
+    // for more information.
+    generateProtoTasks {
+        // all() returns the collection of all protoc tasks
+        all().each { task ->
+            //配置要生成的内容
+            //代码生成是由protoc内置和插件完成的。每个内置/插件都会生成特定类型的代码。要在任务上添加或配置内置/插件，请列出其名称，后跟大括号块。如果需要的话，在括号里加上选项。例如：
+            task.builtins {
+                java {
+                    option 'lite'
+                }
+            }
+        }
+    }
+}
+
+
+repositories {
+    mavenCentral()
+}
