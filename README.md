@@ -430,6 +430,7 @@ RxDataStore.data(dataStore).first().subscribe();
 [DataStore的Demo传送门](https://github.com/ruanyandong/Android-Jatpack-DataStore-Sample)
 
 参考文档
+
 [Jetpack DataStore官方文档](https://developer.android.com/topic/libraries/architecture/datastore#kotlin)
 
 [Android Jetpack 之 DataStore博客](https://blog.csdn.net/zzw0221/article/details/109274610)
